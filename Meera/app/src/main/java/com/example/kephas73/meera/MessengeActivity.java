@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -39,7 +38,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -91,7 +89,6 @@ public class MessengeActivity extends AppCompatActivity {
         });
     }
 
-    // Ánh xạ
     private void Mapping() {
 
         mProfileImage = findViewById(R.id.profileImage);
@@ -99,14 +96,13 @@ public class MessengeActivity extends AppCompatActivity {
         mSend = findViewById(R.id.txtSend);
         btnSend = findViewById(R.id.btnSend);
         intent = getIntent();
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        // Thay đổi hình nền chat theo thời gian
-        ChangeBackgroundChats(GetTimeNow());
-        //--------------------------------------
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
         manager.setStackFromEnd(true);
         recyclerView.setLayoutManager(manager);
+
         android.support.v7.widget.Toolbar toolBar = findViewById(R.id.toolBal);
         setSupportActionBar(toolBar);
         getSupportActionBar().setTitle("");
@@ -119,72 +115,6 @@ public class MessengeActivity extends AppCompatActivity {
             }
         });
     }
-
-    // Lấy giờ hiện tại.
-    private int GetTimeNow(){
-        int flag = 0;
-        Calendar calendar = Calendar.getInstance();
-        int time = calendar.getTime().getHours();
-        if ( 2 < time  && time < 5) {
-            // Thời gian khuya3: night_2
-            flag = 1;
-        } else if ( 5 <= time  && time < 7) {
-            // Thời gian sáng 1: mornning
-            flag = 2;
-        } else if ( 7 <= time  && time < 11) {
-            // Thời gian sáng 2: morning_1
-            flag = 3;
-        } else if ( 11 <= time  && time < 14) {
-            // Thời gian trưa 1: afternoon
-            flag = 4;
-        }  else if ( 14 <= time  && time < 17) {
-            // Thời gian trưa 2: afternoon_2
-            flag = 5;
-        } else if ( 17 <= time  && time < 19) {
-            // Thời gian trưa 3: afternoon_3
-            flag = 6;
-        } else if ( 19 <= time && time < 22) {
-            // Thời gian khuya2: night
-            flag = 7;
-        }  else  {
-            // Thời gian khuya2: night_1
-            flag = 8;
-        }
-        return flag;
-    }
-
-    // Thay đổi hình nền chát
-    private void  ChangeBackgroundChats(int timeNow) {
-        switch (timeNow) {
-            case 1:
-                recyclerView.setBackgroundResource(R.drawable.night_2);
-                break;
-            case 2:
-                recyclerView.setBackgroundResource(R.drawable.mornning);
-                break;
-            case 3:
-                recyclerView.setBackgroundResource(R.drawable.mornning_1);
-                break;
-            case 4:
-                recyclerView.setBackgroundResource(R.drawable.afternoon);
-                break;
-            case 5:
-                recyclerView.setBackgroundResource(R.drawable.afternoon_2);
-                break;
-            case 6:
-                recyclerView.setBackgroundResource(R.drawable.afternoon_3);
-                break;
-            case 7:
-                recyclerView.setBackgroundResource(R.drawable.night);
-                break;
-            case 8:
-                recyclerView.setBackgroundResource(R.drawable.night_1);
-                break;
-            default:
-                break;
-        }
-    }
-
 
     private void ShowProfileReciver(final String userId) {
         reference = FirebaseDatabase.getInstance().getReference("User").child(userId);
@@ -240,7 +170,6 @@ public class MessengeActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 mChats.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chats chats = new Chats();
