@@ -31,7 +31,6 @@
                 android:layout_marginLeft="25dp"
                 android:textColor="#fff"
                 android:textStyle="bold"/>
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -67,7 +66,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/ic_action_send" />
-
     </RelativeLayout>
 
 </RelativeLayout>

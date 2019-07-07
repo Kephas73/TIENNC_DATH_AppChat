@@ -1,12 +1,16 @@
 package com.example.kephas73.meera.Model;
 
 public class User {
-    private String userId, userName, imageURL;
+    private String userId;
+    private String userName;
+    private String imageURL;
+    private String status;
 
-    public User (String userId, String userName, String imageURL) {
+    public User (String userId, String userName, String imageURL, String status) {
         this.userId = userId;
         this.userName = userName;
         this.imageURL = imageURL;
+        this.status = status;
     }
 
     public User() {
@@ -35,5 +39,12 @@ public class User {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

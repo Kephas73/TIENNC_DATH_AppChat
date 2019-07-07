@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.kephas73.meera.Const;
 import com.example.kephas73.meera.Database;
 import com.example.kephas73.meera.MessengeActivity;
 import com.example.kephas73.meera.Model.User;
@@ -24,10 +26,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mcontext;
     private List<User>  mUsers;
+    private boolean isChat;
 
-    public UserAdapter(Context mcontext, List<User> mUsers) {
+    public UserAdapter(Context mcontext, List<User> mUsers, boolean isChat) {
         this.mUsers = mUsers;
         this.mcontext = mcontext;
+        this.isChat = isChat;
     }
 
     @NonNull
@@ -43,10 +47,30 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         final User user = mUsers.get(position);
         holder.userName.setText(user.getUserName());
         if (user.getImageURL().equals("default")) {
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
+            holder.profileImage.setImageResource(R.drawable.ic_action_default);
         } else {
             Glide.with(mcontext).load(user.getImageURL()).into(holder.profileImage);
         }
+
+        if (isChat) {
+            if (user.getStatus().equals(Const.STATUS_ONLINE)) {
+                holder.imageOnline.setVisibility(View.VISIBLE);
+                holder.imageOffline.setVisibility(View.GONE);
+            } else {
+                holder.imageOnline.setVisibility(View.GONE);
+                holder.imageOffline.setVisibility(View.VISIBLE);
+            }
+        } else {
+            holder.imageOnline.setVisibility(View.GONE);
+            holder.imageOffline.setVisibility(View.GONE);
+        }
+
+        holder.addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mcontext, " Xin chào", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +93,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         public TextView userName;
         public ImageView profileImage;
+        public ImageView imageOnline;
+        public ImageView imageOffline;
+        public ImageView addFriend;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             userName = itemView.findViewById(R.id.userName);
             profileImage = itemView.findViewById(R.id.profileImage);
+            imageOnline = itemView.findViewById(R.id.imageOn);
+            imageOffline = itemView.findViewById(R.id.imageOff);
+            addFriend = itemView.findViewById(R.id.addFriend);
+
         }
     }
 }

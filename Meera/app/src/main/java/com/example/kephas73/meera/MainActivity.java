@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 mUserName.setText(user.getUserName());
                 if (user.getImageURL().equals("default")) {
                     // Set hình ảnh có sẵn trong máy tính cửa bạn
-                    mProfileImage.setImageResource(R.mipmap.ic_launcher);
+                    mProfileImage.setImageResource(R.drawable.ic_action_default);
                 } else {
                     // Set hình ảnh từ website khá
                     Glide.with(MainActivity.this).load(user.getImageURL()).into(mProfileImage);
@@ -150,5 +151,32 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return titles.get(position);
         }
+
     }
+
+    // Cập nhật trạng thái hoạt động
+    private void SetStatus(String status) {
+        // Lấy data base của tài khoản đang đăng nhập hiện tại
+        reference = FirebaseDatabase.getInstance().getReference(Database.TABLE_USER).child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(Database.TABLE_USER_STATUS, status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    // Khi đang ở màn hình app hiện tại. Thì hiện on line
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SetStatus(Const.STATUS_ONLINE);
+    }
+    // Khi không ở màn hình app hiện tại. Thì hiện offline
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SetStatus(Const.STATUS_OFFLINE);
+    }
+
 }

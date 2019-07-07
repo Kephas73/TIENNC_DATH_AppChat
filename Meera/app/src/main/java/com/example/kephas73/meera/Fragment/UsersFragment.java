@@ -67,6 +67,7 @@ public class UsersFragment extends Fragment {
                         user.setUserId(snapshot.child(Database.TABLE_USER_ID).getValue().toString());
                         user.setUserName(snapshot.child(Database.TABLE_USER_NAME).getValue().toString());
                         user.setImageURL(snapshot.child(Database.TABLE_USER_IMAGE).getValue().toString());
+                        user.setStatus(snapshot.child(Database.TABLE_USER_STATUS).getValue().toString());
 
                         assert  user != null;
                         assert firebaseUser != null;
@@ -77,7 +78,7 @@ public class UsersFragment extends Fragment {
                         }
                     }
                     // Bỏ từng item vào màn hình
-                    userAdapter = new UserAdapter(getContext(), mUsers);
+                    userAdapter = new UserAdapter(getContext(), mUsers, false);
                     recyclerView.setAdapter(userAdapter);
 
 

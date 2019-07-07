@@ -101,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put(Database.TABLE_USER_ID, userId);
                             hashMap.put(Database.TABLE_USER_NAME, userName);
                             hashMap.put(Database.TABLE_USER_IMAGE,"default");
+                            hashMap.put(Database.TABLE_USER_STATUS, Const.STATUS_OFFLINE);
 
                             // Add new database
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {

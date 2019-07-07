@@ -57,7 +57,7 @@ public class MesssgerAdapter extends RecyclerView.Adapter<MesssgerAdapter.ViewHo
         holder.showMessg.setText(chats.getMessg());
         // Database ko có link hình
         if (imageURL.equals("default")) {
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
+            holder.profileImage.setImageResource(R.drawable.ic_action_default);
         } else {
             Glide.with(mcontext).load(imageURL).into(holder.profileImage);
         }

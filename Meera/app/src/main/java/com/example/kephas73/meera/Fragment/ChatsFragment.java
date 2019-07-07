@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kephas73.meera.Adapter.UserAdapter;
+import com.example.kephas73.meera.Const;
 import com.example.kephas73.meera.Database;
 import com.example.kephas73.meera.Model.Chats;
 import com.example.kephas73.meera.Model.User;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ChatsFragment extends Fragment {
@@ -106,6 +108,7 @@ public class ChatsFragment extends Fragment {
                     user.setUserId(snapshot.child(Database.TABLE_USER_ID).getValue().toString());
                     user.setUserName(snapshot.child(Database.TABLE_USER_NAME).getValue().toString());
                     user.setImageURL(snapshot.child(Database.TABLE_USER_IMAGE).getValue().toString());
+                    user.setStatus(snapshot.child(Database.TABLE_USER_STATUS).getValue().toString());
 
                     for (String id : usersList) {
                         if (user.getUserId().equals(id)) {
@@ -129,7 +132,7 @@ public class ChatsFragment extends Fragment {
                         }
                     }
 
-                    userAdapter = new UserAdapter(getContext(), mUser);
+                    userAdapter = new UserAdapter(getContext(), mUser, true);
                     recyclerView.setAdapter(userAdapter);
                 }
             }

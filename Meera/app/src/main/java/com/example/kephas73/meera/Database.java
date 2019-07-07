@@ -6,6 +6,7 @@ public class Database {
     public static final String TABLE_USER_ID = "id";
     public static final String TABLE_USER_NAME = "userName";
     public static final String TABLE_USER_IMAGE = "imageURL";
+    public static final String TABLE_USER_STATUS = "status";
     public static final String TABLE_USER_CITY  = "city";
     public static final String TABLE_USER_GENDER  = "gender";
     public static final String TABLE_USER_HOBBY = "hobby";

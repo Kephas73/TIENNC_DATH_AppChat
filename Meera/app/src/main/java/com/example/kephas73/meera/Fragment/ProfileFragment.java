@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.kephas73.meera.Const;
 import com.example.kephas73.meera.Database;
 import com.example.kephas73.meera.MainActivity;
 import com.example.kephas73.meera.Message;
@@ -98,7 +99,7 @@ public class ProfileFragment extends Fragment {
                 mUserName.setText(user.getUserName());
                 if (user.getImageURL().equals("default")) {
                     // Set hình ảnh có sẵn trong máy tính cửa bạn
-                    mProfileImage.setImageResource(R.mipmap.ic_launcher);
+                    mProfileImage.setImageResource(R.drawable.ic_action_default);
                 } else {
                     // Set hình ảnh từ website khá
                     Glide.with(ProfileFragment.this).load(user.getImageURL()).into(mProfileImage);
@@ -194,4 +195,5 @@ public class ProfileFragment extends Fragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }
